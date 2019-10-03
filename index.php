@@ -34,7 +34,7 @@ include('include/header.html');
                 <small class="mandatory">* mandatory fields</small>
                 <?= $formErrors['content'] ?>
             </label>
-            <?= $youDidItJoe ?>
+            <?= $validateSentence ?>
             <input name="submit" type="submit" value="send">
         </form>
     </main>

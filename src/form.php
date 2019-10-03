@@ -11,7 +11,7 @@ $formErrors = [
 ];
 
 // Init a validation answer
-$youDidItJoe = '';
+$validateSentence = '';
 
 //Init a validation --> false at the beginning
 $validationForm = false;
@@ -26,6 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $emailConfirm = $_POST['emailConfirm'];
     $subject = $_POST['subject'];
     $content = $_POST['content'];
+
 
     // We test the firstName
     if( empty( $firstName ) ){
@@ -90,21 +91,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($validationForm == true){
 
         //We insert all the values in the database
-        $insertForm = 'INSERT INTO message (firstname, lastname, email, `subject`, content) VALUES ("'. $firstName .'", "'. $lastName .'", "'. $email .'", "'. $subject .'", "'. $content .'")';
-        $dbh->exec($insertForm);
+        $insertForm = 'INSERT INTO message (firstname, lastname, email, `subject`, content) VALUES (:firstname, :lastname, :email, :subject, :content)';
+        //$dbh->exec($insertForm);
 
         //Or we prepare it ! TODO Put the placeholders instead of the concatained values
-        /*$dbh->prepare($insertForm);
+        $pushMe = $dbh->prepare($insertForm);
         //And we execute the program
-        $dbh->execute([
+        $pushMe->execute([
             ':firstname' => $firstName,
             ':lastname' => $lastName,
             ':email' => $email,
             ':subject' => $subject,
             ':content' => $content
-        ]);*/
+        ]);
 
-        $youDidItJoe = '<div>Thank you for your feedback, we\'ll answer it very quickly !</div>';
+        $validateSentence = '<div>Thank you for your feedback, we\'ll answer it very quickly !</div>';
     }
 
 }
